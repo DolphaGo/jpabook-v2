@@ -1,6 +1,5 @@
 package com.jpashop.dolphago.api;
 
-
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +21,13 @@ public class TestController {
     private final TestService testService;
 
     @PostMapping("/test/create")
-    public void create(@Valid @RequestBody TestForm testForm){
-        log.info("입력 ={}",testForm);
-        testService.save(testForm.getMessage(),testForm.getTestEnum());
+    public void create(@Valid @RequestBody TestForm testForm) {
+        log.info("입력 ={}", testForm);
+        testService.save(testForm.getMessage(), testForm.getTestEnum());
     }
 
     @PutMapping("/test/modify/{id}")
-    public void modify(@PathVariable Long id, @Valid @RequestBody TestForm testForm){
+    public void modify(@PathVariable Long id, @Valid @RequestBody TestForm testForm) {
         testService.updateStatus(id, testForm.getTestEnum());
     }
 }

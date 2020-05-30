@@ -12,10 +12,12 @@ import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @Entity
 public class Delivery {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY) //order -> delivery가 더 많이 사용되기 때문

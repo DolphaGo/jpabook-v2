@@ -11,7 +11,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-
 @EnableSwagger2
 @Configuration
 public class SwaggerConfig {
@@ -19,6 +18,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder().title("Enum update Test").description("Dolphago")
                                    .version("2.0").build();
     }
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)

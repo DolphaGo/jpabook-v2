@@ -29,7 +29,7 @@ public class OrderRepository {
         //동적 쿼리는 QuaryDSL을 사용해서 해결하자~
         log.info("들어오는 orderSearch Type={}", orderSearch.getOrderStatus());
         return em.createQuery("select o from Order o join Member m on o.member = m where o.status = :status and o.member.name like :name", Order.class)
-                 .setParameter("name",orderSearch.getMemberName())
+                 .setParameter("name", orderSearch.getMemberName())
                  .setParameter("status", orderSearch.getOrderStatus())
                  .setMaxResults(1000)
                  .getResultList();

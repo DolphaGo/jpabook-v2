@@ -33,7 +33,7 @@ public class ItemService {
     @Transactional
     public void updateItem(Long itemId, String name, int price, int stockQuantity) {
         //setter는 지양해라. 의미가 있는 메서드 명을 해야한다. 예를들면 change...
-        Item findItem = itemRepository.findOne(itemId); // findItem은 영속 상태
+        final Item findItem = itemRepository.findOne(itemId); // findItem은 영속 상태
 //        findItem.setPrice(price);
 //        findItem.setName(name);
 //        findItem.setStockQuantity(stockQuantity);

@@ -35,9 +35,9 @@ public class MemberController {
             return "members/createMemberForm";
         }
 
-        Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
+        final Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
-        Member member = new Member();
+        final Member member = new Member();
         member.setName(form.getName());
         member.setAddress(address);
 
@@ -47,7 +47,7 @@ public class MemberController {
 
     @GetMapping("/members")
     public String list(Model model) {
-        List<Member> members = memberService.findMembers();
+        final List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
         return "members/memberList";
     }

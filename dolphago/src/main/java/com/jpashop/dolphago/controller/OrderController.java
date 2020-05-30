@@ -30,8 +30,8 @@ public class OrderController {
     @GetMapping("/order")
     public String createForm(Model model) {
 
-        List<Member> members = memberService.findMembers();
-        List<Item> items = itemService.findItems();
+        final List<Member> members = memberService.findMembers();
+        final List<Item> items = itemService.findItems();
 
         model.addAttribute("members", members);
         model.addAttribute("items", items);
@@ -49,7 +49,7 @@ public class OrderController {
 
     @GetMapping("/orders")
     public String orderList(@ModelAttribute("orderSearch") OrderSearch orderSearch, Model model) {
-        List<Order> orders = orderService.findOrders(orderSearch);
+        final List<Order> orders = orderService.findOrders(orderSearch);
         model.addAttribute("orders", orders);
         return "order/orderList";
     }

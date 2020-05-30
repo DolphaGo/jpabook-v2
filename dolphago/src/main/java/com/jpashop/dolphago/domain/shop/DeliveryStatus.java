@@ -1,5 +1,5 @@
 package com.jpashop.dolphago.domain.shop;
 
-public enum  DeliveryStatus {
+public enum DeliveryStatus {
     READY, COMP
 }

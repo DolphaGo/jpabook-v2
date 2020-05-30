@@ -17,11 +17,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-@Getter @Setter
+@Getter
+@Setter
 @Entity
 public class Member {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
@@ -31,7 +33,7 @@ public class Member {
     @Embedded
     private Address address;
 
-//    @JsonIgnore // Json을 사용하지 않으려면 이를 이용하면 되지만, 굉장히 위험한 일. 모든 케이스를 대응할 수 없다.
+    //    @JsonIgnore // Json을 사용하지 않으려면 이를 이용하면 되지만, 굉장히 위험한 일. 모든 케이스를 대응할 수 없다.
     @OneToMany(mappedBy = "member")
-    private List<Order> orders=new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 }

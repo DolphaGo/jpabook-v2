@@ -14,7 +14,7 @@ public class DolphagoApplication {
     }
 
     @Bean
-    Hibernate5Module hibernate5Module(){
+    Hibernate5Module hibernate5Module() {
         return new Hibernate5Module();
     }
 }

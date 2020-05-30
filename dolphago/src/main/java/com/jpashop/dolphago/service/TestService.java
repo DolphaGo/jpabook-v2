@@ -23,7 +23,7 @@ public class TestService {
     }
 
     public void save(String message, TestEnum testEnum) {
-        Test test = new Test(message, testEnum);
+        final Test test = new Test(message, testEnum);
         testRepository.save(test);
     }
 }

@@ -10,10 +10,12 @@ import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @Entity
 public class CategoryItem {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String name;
@@ -23,6 +25,6 @@ public class CategoryItem {
     private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name= "category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 }

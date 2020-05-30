@@ -30,7 +30,7 @@ public class ItemController {
     public String create(BookForm form) {
         //가급적 Setter는 사용하지 말 것. 예제이므로 사용하는 것 뿐.
         //그리고 Entity와 Form은 분리하라.
-        Book book = new Book();
+        final Book book = new Book();
         book.setName(form.getName());
         book.setPrice(form.getPrice());
         book.setStockQuantity(form.getStockQuantity());
@@ -43,16 +43,16 @@ public class ItemController {
 
     @GetMapping("/items")
     public String items(Model model) {
-        List<Item> items = itemService.findItems();
+        final List<Item> items = itemService.findItems();
         model.addAttribute("items", items);
         return "items/itemList";
     }
 
     @GetMapping("/items/{itemId}/edit")
     public String updateItemForm(@PathVariable("itemId") Long itemId, Model model) {
-        Book item = (Book) itemService.findOne(itemId);
+        final Book item = (Book) itemService.findOne(itemId);
 
-        BookForm form = new BookForm();
+        final BookForm form = new BookForm();
         form.setId(item.getId());
         form.setName(item.getName());
         form.setPrice(item.getPrice());

@@ -17,10 +17,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @Entity
 public class Category {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "category_id")
     private Long id;
 
@@ -28,16 +30,16 @@ public class Category {
 
     @JsonIgnore
     @OneToMany(mappedBy = "category")
-    private List<CategoryItem> categoryItems=new ArrayList<>();
+    private List<CategoryItem> categoryItems = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
-    private List<Category> child=new ArrayList<>();
+    private List<Category> child = new ArrayList<>();
 
-    public void addChildCategory(Category child){
+    public void addChildCategory(Category child) {
         this.child.add(child);
         child.setParent(this);
     }
