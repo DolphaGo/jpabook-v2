@@ -1,11 +1,13 @@
 package com.jpashop.dolphago.domain.shop;
 
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +18,6 @@ public class Delivery {
     @Id @GeneratedValue
     private Long id;
 
-//    @JsonIgnore
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY) //order -> delivery가 더 많이 사용되기 때문
     private Order order;
 

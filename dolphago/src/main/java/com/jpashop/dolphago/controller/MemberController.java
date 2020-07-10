@@ -23,22 +23,21 @@ public class MemberController {
     private final MemberService memberService;
 
     @GetMapping("/members/new")
-    public String createForm(Model model){
-        model.addAttribute("memberForm",new MemberForm());
+    public String createForm(Model model) {
+        model.addAttribute("memberForm", new MemberForm());
         return "members/createMemberForm";
     }
 
-
     @PostMapping("/members/new")
-    public String create(@Valid MemberForm form, BindingResult result){
+    public String create(@Valid MemberForm form, BindingResult result) {
 
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
             return "members/createMemberForm";
         }
 
         Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
 
-        Member member=new Member();
+        Member member = new Member();
         member.setName(form.getName());
         member.setAddress(address);
 
@@ -47,9 +46,9 @@ public class MemberController {
     }
 
     @GetMapping("/members")
-    public String list(Model model){
-        List<Member> members=memberService.findMembers();
-        model.addAttribute("members",members);
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
         return "members/memberList";
     }
 }

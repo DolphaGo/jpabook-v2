@@ -1,7 +1,5 @@
 package com.jpashop.dolphago.domain.test;
 
-import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
