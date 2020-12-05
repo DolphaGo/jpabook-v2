@@ -1,0 +1,26 @@
+#spring:
+#  datasource:
+#    url: jdbc:h2:mem:test  # 테스트케이스에서 적용되는 yml이다. 데이터 베이스에 접근하지 않고 메모리로 바꿔주면 된다.
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+
+# 근데, SpringBoot에선 이런 코드 조차 필요 없다. SpringBoot에선 별도의 설정이 없으면 메모리 모드로 테스트해준다.
+# 그래서 이러한 설정이 없어도 테스트가 메모리 모드로 돌아가게 된다.
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create #springboot는 기본적으로 create-drop으로 돌아가게 된다.
+    properties:
+      hibernate:
+#      show_sql: true # 쿼리 콘솔 출력 -> 사용 지양
+        format_sql: true
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    org.hibernate.SQL: debug # 쿼리 로그 출력
+
+
