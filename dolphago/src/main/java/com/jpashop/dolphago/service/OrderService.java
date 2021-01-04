@@ -59,7 +59,6 @@ public class OrderService {
 
     //검색
     public List<Order> findOrders(OrderSearch orderSearch){
-        log.info("현재 선택한 orderSearch:"+orderSearch.getOrderStatus());
         return orderRepository.findAllByString(orderSearch);
     }
 
