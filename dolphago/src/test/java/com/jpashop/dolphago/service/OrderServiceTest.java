@@ -1,16 +1,17 @@
 package com.jpashop.dolphago.service;
 
-import com.jpashop.dolphago.domain.*;
-import com.jpashop.dolphago.exception.NotEnoughStockException;
-import com.jpashop.dolphago.repository.OrderRepository;
+import static org.junit.jupiter.api.Assertions.*;
+
+import javax.persistence.EntityManager;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.jpashop.dolphago.domain.*;
+import com.jpashop.dolphago.exception.NotEnoughStockException;
+import com.jpashop.dolphago.repository.OrderRepository;
 
 @SpringBootTest
 @Transactional

@@ -1,6 +1,7 @@
 package com.jpashop.dolphago.repository;
 
 import com.jpashop.dolphago.domain.OrderStatus;
+
 import lombok.Getter;
 import lombok.Setter;
 

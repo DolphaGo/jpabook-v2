@@ -1,13 +1,14 @@
 package com.jpashop.dolphago.service;
 
-import com.jpashop.dolphago.domain.Member;
-import com.jpashop.dolphago.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.jpashop.dolphago.domain.Member;
+import com.jpashop.dolphago.repository.MemberRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 //@Transactional //트랜잭션 안에서 데이터 변경해야 한다.

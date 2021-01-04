@@ -1,16 +1,20 @@
 package com.jpashop.dolphago.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.jpashop.dolphago.domain.*;
 import com.jpashop.dolphago.repository.ItemRepository;
 import com.jpashop.dolphago.repository.MemberRepository;
 import com.jpashop.dolphago.repository.OrderRepository;
 import com.jpashop.dolphago.repository.OrderSearch;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -55,6 +59,7 @@ public class OrderService {
 
     //검색
     public List<Order> findOrders(OrderSearch orderSearch){
+        log.info("현재 선택한 orderSearch:"+orderSearch.getOrderStatus());
         return orderRepository.findAllByString(orderSearch);
     }
 

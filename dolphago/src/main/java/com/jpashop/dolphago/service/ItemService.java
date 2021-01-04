@@ -1,13 +1,14 @@
 package com.jpashop.dolphago.service;
 
-import com.jpashop.dolphago.domain.Book;
-import com.jpashop.dolphago.domain.Item;
-import com.jpashop.dolphago.repository.ItemRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.jpashop.dolphago.domain.Item;
+import com.jpashop.dolphago.repository.ItemRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional(readOnly = true)

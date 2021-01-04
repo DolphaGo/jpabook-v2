@@ -1,16 +1,17 @@
 package com.jpashop.dolphago.service;
 
-import com.jpashop.dolphago.domain.Member;
-import com.jpashop.dolphago.repository.MemberRepository;
+import static org.junit.jupiter.api.Assertions.*;
+
+import javax.persistence.EntityManager;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-
-import static org.junit.jupiter.api.Assertions.*;
+import com.jpashop.dolphago.domain.Member;
+import com.jpashop.dolphago.repository.MemberRepository;
 
 @SpringBootTest
 @Transactional //테스트에서는 롤백 true가 기본

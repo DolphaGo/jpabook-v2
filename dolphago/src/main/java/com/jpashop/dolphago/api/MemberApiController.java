@@ -1,15 +1,18 @@
 package com.jpashop.dolphago.api;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
+import org.springframework.web.bind.annotation.*;
+
 import com.jpashop.dolphago.domain.Member;
 import com.jpashop.dolphago.service.MemberService;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
