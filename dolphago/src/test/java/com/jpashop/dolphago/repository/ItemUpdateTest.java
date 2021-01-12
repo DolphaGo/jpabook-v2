@@ -1,7 +1,5 @@
 package com.jpashop.dolphago.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import javax.persistence.EntityManager;
 
 import org.junit.jupiter.api.Test;
@@ -9,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jpashop.dolphago.domain.Book;
+import com.jpashop.dolphago.domain.shop.Book;
 
 @SpringBootTest
 class ItemUpdateTest {

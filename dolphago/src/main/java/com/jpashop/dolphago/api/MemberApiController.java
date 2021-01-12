@@ -7,7 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.jpashop.dolphago.domain.Member;
+import com.jpashop.dolphago.domain.shop.Member;
 import com.jpashop.dolphago.service.MemberService;
 
 import lombok.AllArgsConstructor;

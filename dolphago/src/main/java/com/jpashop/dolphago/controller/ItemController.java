@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.jpashop.dolphago.domain.Book;
-import com.jpashop.dolphago.domain.Item;
+import com.jpashop.dolphago.domain.shop.Book;
+import com.jpashop.dolphago.domain.shop.Item;
 import com.jpashop.dolphago.service.ItemService;
 
 import lombok.RequiredArgsConstructor;

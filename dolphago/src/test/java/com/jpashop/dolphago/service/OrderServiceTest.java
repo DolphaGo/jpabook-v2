@@ -9,7 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jpashop.dolphago.domain.*;
+import com.jpashop.dolphago.domain.shop.Address;
+import com.jpashop.dolphago.domain.shop.Book;
+import com.jpashop.dolphago.domain.shop.Member;
+import com.jpashop.dolphago.domain.shop.Order;
+import com.jpashop.dolphago.domain.shop.OrderStatus;
 import com.jpashop.dolphago.exception.NotEnoughStockException;
 import com.jpashop.dolphago.repository.OrderRepository;
 
@@ -25,9 +29,9 @@ class OrderServiceTest {
     @Test
     public void 상품주문() throws Exception{
         //given
-        Member member = createMember("회원",new Address("서울", "한강", "123-456"));
+        Member member = createMember("회원", new Address("서울", "한강", "123-456"));
 
-        Book book = createBook("시골 JPA",10000, 10);
+        Book book = createBook("시골 JPA", 10000, 10);
 
         int orderCount=2;
         //when
@@ -36,7 +40,7 @@ class OrderServiceTest {
         //then
         Order getOrder = orderRepository.findOne(orderId);
 
-        assertEquals( OrderStatus.ORDER, getOrder.getStatus(),"상품 주문시 상태는 ORDER");
+        assertEquals(OrderStatus.ORDER, getOrder.getStatus(), "상품 주문시 상태는 ORDER");
         assertEquals(1,getOrder.getOrderItems().size(),"주문한 상품 종류 수가 정확해야 한다.");
         assertEquals(book.getPrice() * orderCount , getOrder.getTotalPrice(), "주문 가격은 가격 * 수량이다.");
         assertEquals(8,book.getStockQuantity(),"주문 수량만큼 재고가 줄어야 한다.");

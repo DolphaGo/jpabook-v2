@@ -1,4 +1,4 @@
-package com.jpashop.dolphago.domain;
+package com.jpashop.dolphago.domain.shop;
 
 import javax.persistence.*;
 

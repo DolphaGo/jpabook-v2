@@ -6,12 +6,12 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jpashop.dolphago.domain.Address;
-import com.jpashop.dolphago.domain.Book;
-import com.jpashop.dolphago.domain.Delivery;
-import com.jpashop.dolphago.domain.Member;
-import com.jpashop.dolphago.domain.Order;
-import com.jpashop.dolphago.domain.OrderItem;
+import com.jpashop.dolphago.domain.shop.Address;
+import com.jpashop.dolphago.domain.shop.Book;
+import com.jpashop.dolphago.domain.shop.Delivery;
+import com.jpashop.dolphago.domain.shop.Member;
+import com.jpashop.dolphago.domain.shop.Order;
+import com.jpashop.dolphago.domain.shop.OrderItem;
 
 import lombok.RequiredArgsConstructor;
 

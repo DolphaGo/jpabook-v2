@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jpashop.dolphago.domain.Order;
+import com.jpashop.dolphago.domain.shop.Order;
 import com.jpashop.dolphago.repository.OrderRepository;
 import com.jpashop.dolphago.repository.OrderSearch;
 

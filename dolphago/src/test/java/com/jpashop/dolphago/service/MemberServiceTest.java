@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jpashop.dolphago.domain.Member;
+import com.jpashop.dolphago.domain.shop.Member;
 import com.jpashop.dolphago.repository.MemberRepository;
 
 @SpringBootTest

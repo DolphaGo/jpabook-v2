@@ -10,8 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.jpashop.dolphago.domain.Address;
-import com.jpashop.dolphago.domain.Member;
+import com.jpashop.dolphago.domain.shop.Address;
+import com.jpashop.dolphago.domain.shop.Member;
 import com.jpashop.dolphago.service.MemberService;
 
 import lombok.RequiredArgsConstructor;

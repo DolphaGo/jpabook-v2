@@ -5,7 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jpashop.dolphago.domain.*;
+import com.jpashop.dolphago.domain.shop.Delivery;
+import com.jpashop.dolphago.domain.shop.Item;
+import com.jpashop.dolphago.domain.shop.Member;
+import com.jpashop.dolphago.domain.shop.Order;
+import com.jpashop.dolphago.domain.shop.OrderItem;
 import com.jpashop.dolphago.repository.ItemRepository;
 import com.jpashop.dolphago.repository.MemberRepository;
 import com.jpashop.dolphago.repository.OrderRepository;
@@ -38,7 +42,7 @@ public class OrderService {
         delivery.setAddress(member.getAddress()); //멤버의 주소로 배송할 때
 
         //주문상품 생성
-        OrderItem orderItem= OrderItem.createOrderItem(item,item.getPrice(),count);
+        OrderItem orderItem= OrderItem.createOrderItem(item, item.getPrice(), count);
 
         //주문 생성
         Order order = Order.createOrder(member, delivery, orderItem);

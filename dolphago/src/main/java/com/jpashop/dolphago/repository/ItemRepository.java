@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Repository;
 
-import com.jpashop.dolphago.domain.Item;
+import com.jpashop.dolphago.domain.shop.Item;
 
 import lombok.RequiredArgsConstructor;
 

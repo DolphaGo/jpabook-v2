@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jpashop.dolphago.domain.Member;
+import com.jpashop.dolphago.domain.shop.Member;
 import com.jpashop.dolphago.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
