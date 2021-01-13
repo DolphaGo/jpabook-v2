@@ -18,6 +18,7 @@ public class MemberService {
 
     //final을 붙여주는 것을 추천한다. 초기화를 안해주면 컴파일 시점에 체크를 할 수 있고, 추후 변경하지 않기 때문에 final 권장
     private final MemberRepository memberRepository;
+
     /**
      *
      // @Autowired private MemberRepository memberRepository;
@@ -39,7 +40,7 @@ public class MemberService {
 
     //회원 가입
     @Transactional //메서드에 붙은 것이 더 우선순위이므로, 클래스에 붙어있는 readOnly는 적용되지 않는다.
-    public Long join(Member member){
+    public Long join(Member member) {
         validateDuplicateMember(member); //중복 회원 검증
         memberRepository.save(member);
         return member.getId();
@@ -47,17 +48,17 @@ public class MemberService {
 
     private void validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.findByName(member.getName());
-        if( !findMembers.isEmpty()){
+        if (!findMembers.isEmpty()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }
 
     //회원 전체 조회
-    public List<Member> findMembers(){
+    public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
-    public Member findOne(Long memberId){
+    public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
     }
 

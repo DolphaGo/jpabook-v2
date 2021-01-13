@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 import com.jpashop.dolphago.domain.shop.Order;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class OrderRepository {
@@ -25,11 +27,10 @@ public class OrderRepository {
 
     public List<Order> findAllByString(OrderSearch orderSearch){
         //동적 쿼리는 QuaryDSL을 사용해서 해결하자~
+        log.info("들어오는 orderSearch Type={}", orderSearch.getOrderStatus());
         return em.createQuery("select o from Order o join o.member m " +
-                "where o.status =: status "+
-                "and m.name like :name", Order.class)
+                "where o.status =:status ", Order.class)
                 .setParameter("status",orderSearch.getOrderStatus())
-                .setParameter("name",orderSearch.getMemberName())
                 .setMaxResults(1000)
                 .getResultList();
     }

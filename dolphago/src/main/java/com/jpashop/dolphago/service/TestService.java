@@ -17,13 +17,13 @@ public class TestService {
     private final TestRepository testRepository;
 
     @Transactional
-    public void updateStatus(Long testId, TestEnum testEnum){
-        log.info("변경할 상태={}",testEnum);
-        testRepository.updateStatus(testId,testEnum);
+    public void updateStatus(Long testId, TestEnum testEnum) {
+        log.info("변경할 상태={}", testEnum);
+        testRepository.updateStatus(testId, testEnum);
     }
 
     public void save(String message, TestEnum testEnum) {
-        Test test=new Test(message,testEnum);
+        Test test = new Test(message, testEnum);
         testRepository.save(test);
     }
 }
