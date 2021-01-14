@@ -17,22 +17,22 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderRepository {
     private final EntityManager em;
 
-    public void save(Order order){
+    public void save(Order order) {
         em.persist(order);
     }
 
-    public Order findOne(Long id){
-        return em.find(Order.class,id);
+    public Order findOne(Long id) {
+        return em.find(Order.class, id);
     }
 
-    public List<Order> findAllByString(OrderSearch orderSearch){
+    public List<Order> findAllByString(OrderSearch orderSearch) {
         //동적 쿼리는 QuaryDSL을 사용해서 해결하자~
         log.info("들어오는 orderSearch Type={}", orderSearch.getOrderStatus());
         return em.createQuery("select o from Order o join o.member m " +
-                "where o.status =:status ", Order.class)
-                .setParameter("status",orderSearch.getOrderStatus())
-                .setMaxResults(1000)
-                .getResultList();
+                              "where o.status =:status ", Order.class)
+                 .setParameter("status", orderSearch.getOrderStatus())
+                 .setMaxResults(1000)
+                 .getResultList();
     }
 
 }

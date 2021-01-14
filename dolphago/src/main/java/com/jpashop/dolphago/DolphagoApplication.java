@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DolphagoApplication {
 
     public static void main(String[] args) {
-		SpringApplication.run(DolphagoApplication.class, args);
+        SpringApplication.run(DolphagoApplication.class, args);
     }
 
 }

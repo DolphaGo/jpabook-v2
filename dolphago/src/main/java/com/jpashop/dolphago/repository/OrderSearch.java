@@ -5,7 +5,8 @@ import com.jpashop.dolphago.domain.shop.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 public class OrderSearch {
 
     private String memberName; // 회원 이름

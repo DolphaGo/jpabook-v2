@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Test {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "test_id")
     private Long id;
     private String message;

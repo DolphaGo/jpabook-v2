@@ -15,7 +15,7 @@ public class Delivery {
     @Id @GeneratedValue
     private Long id;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY) //order -> delivery가 더 많이 사용되기 때문
     private Order order;
 
