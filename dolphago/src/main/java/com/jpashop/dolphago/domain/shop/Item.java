@@ -26,7 +26,7 @@ public abstract class Item {
     private int price;
     private int stockQuantity;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "item")
     List<CategoryItem> categories = new ArrayList<>();
 

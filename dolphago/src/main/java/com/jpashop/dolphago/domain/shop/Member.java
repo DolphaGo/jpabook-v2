@@ -6,14 +6,14 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+@ToString
 @Getter @Setter
 @Entity
 public class Member {
@@ -28,7 +28,7 @@ public class Member {
     @Embedded
     private Address address;
 
-    @JsonIgnore // Json을 사용하지 않으려면 이를 이용하면 되지만, 굉장히 위험한 일. 모든 케이스를 대응할 수 없다.
+//    @JsonIgnore // Json을 사용하지 않으려면 이를 이용하면 되지만, 굉장히 위험한 일. 모든 케이스를 대응할 수 없다.
     @OneToMany(mappedBy = "member")
     private List<Order> orders=new ArrayList<>();
 }
