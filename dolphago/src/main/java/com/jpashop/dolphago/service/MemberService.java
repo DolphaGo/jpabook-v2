@@ -67,4 +67,9 @@ public class MemberService {
         final Member member = memberRepository.findOne(id); //영속상태
         member.setName(name); //Dirty-checking
     }
+
+    @Transactional
+    public void biz() {
+        //.. 비즈니스 로직 실행
+    }
 }
