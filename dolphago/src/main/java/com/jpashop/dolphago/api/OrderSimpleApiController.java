@@ -47,7 +47,15 @@ public class OrderSimpleApiController {
                                             .map(SimpleOrderDto::new)
                                             .collect(toList());
         return result;
+    }
 
+    //FetchJoin으로 1+N을 방지해보자
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> ordersV3() {
+        // 쿼리가 1번 나갑니다! 페치조인으로 성능을 끌어올렸다!
+        return orderRepository.findAllWithMemberDelivery()
+                              .stream().map(SimpleOrderDto::new)
+                              .collect(toList());
     }
 
     @Data
