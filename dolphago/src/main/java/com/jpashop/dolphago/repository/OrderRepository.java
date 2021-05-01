@@ -14,7 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class OrderRepository {
+public class OrderRepository {    // 여기는 엔티티 스펙만 쿼리하자
+
     private final EntityManager em;
 
     public void save(Order order) {
