@@ -15,6 +15,6 @@ public class DolphagoApplication {
 
     @Bean
     Hibernate5Module hibernate5Module() {
-        return new Hibernate5Module();
+        return new Hibernate5Module(); // 레이지로딩을 호출해서 초기화된 녀석만 API로 반환이 됨
     }
 }

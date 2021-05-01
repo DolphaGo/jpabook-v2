@@ -13,8 +13,8 @@ public class OrderSearch {
     private OrderStatus orderStatus; // 주문 상태 [ ORDER, CANCEL ]
 
     public OrderSearch() {
-        memberName = "userA";
-        orderStatus = OrderStatus.ORDER;
+//        memberName = "userA";
+//        orderStatus = OrderStatus.ORDER;
     }
 
     public OrderSearch(String memberName, OrderStatus orderStatus) {

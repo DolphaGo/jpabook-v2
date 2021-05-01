@@ -12,6 +12,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jpashop.dolphago.exception.NotEnoughStockException;
 
 import lombok.Getter;
@@ -22,17 +23,21 @@ import lombok.Setter;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // 싱글테이블 전략 -> Discriminator 필요(작성하지 않으면 Default "DTYPE")
 public abstract class Item {
-
-    //    @JsonIgnore
-    @OneToMany(mappedBy = "item")
-    List<CategoryItem> categories = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id")
     private Long id;
+
     private String name;
+
     private int price;
+
     private int stockQuantity;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "item")
+    List<CategoryItem> categories = new ArrayList<>();
+
 
     //== Business Logic ==// : Entity 안에 비즈니스 로직을 넣으면 좋다. 데이터를 가지고 있는 곳에서 비즈니스 로직을 넣어주는 것이 응집도가 높을 것.
     //어떤 값을 변경할 때 Setter로 변경하지 말고, 비즈니스 로직으로 처리해야 한다.

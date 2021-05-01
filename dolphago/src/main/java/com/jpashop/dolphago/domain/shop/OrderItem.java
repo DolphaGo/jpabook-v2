@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,24 @@ import lombok.Setter;
 @Entity
 public class OrderItem {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "order_item_id")
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    @JsonIgnore // 엔티티를 직접 출력할 때는(그러면 안되지만) 양방향 관계에 있을 때 JsonIgnore를 꼭 걸어줍시다.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    private int orderPrice; //주문 가격
+
+    private int count; // 주문 수량
+
     //==생성 메서드==//
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         final OrderItem orderItem = new OrderItem();
@@ -29,18 +49,6 @@ public class OrderItem {
         item.removeStock(count); //상품 개수 줄여주고
         return orderItem;
     }
-    @Id
-    @GeneratedValue
-    @Column(name = "order_item_id")
-    private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
-    private int orderPrice; //주문 가격
-    private int count; // 주문 수량
 
     //== 비즈니스 로직==//
     public void cancel() {

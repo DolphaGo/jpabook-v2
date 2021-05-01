@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import com.jpashop.dolphago.domain.shop.Order;
 
@@ -27,13 +28,40 @@ public class OrderRepository {    // 여기는 엔티티 스펙만 쿼리하자
     }
 
     public List<Order> findAllByString(OrderSearch orderSearch) {
-        //동적 쿼리는 QuaryDSL을 사용해서 해결하자~
-        log.info("들어오는 orderSearch Type={}", orderSearch.getOrderStatus());
-        return em.createQuery("select o from Order o join Member m on o.member = m where o.status = :status and o.member.name like :name", Order.class)
-                 .setParameter("name", orderSearch.getMemberName())
-                 .setParameter("status", orderSearch.getOrderStatus())
-                 .setMaxResults(1000)
-                 .getResultList();
+        String jpql = "select o from Order o join o.member m";
+        boolean isFirstCondition = true;
+
+        // 주문 상태 검색
+        if (orderSearch.getOrderStatus() != null) {
+            if (isFirstCondition) {
+                jpql += " where";
+                isFirstCondition = false;
+            } else {
+                jpql += " and";
+            }
+            jpql += " o.status = " + orderSearch.getOrderStatus();
+        }
+
+        //회원 이름 검색
+        if (StringUtils.hasText(orderSearch.getMemberName())) {
+            if (isFirstCondition) {
+                jpql += " where";
+                isFirstCondition = false;
+            } else {
+                jpql += " and";
+            }
+            jpql += " m.name = " + orderSearch.getMemberName();
+        }
+
+        return em.createQuery(jpql, Order.class).getResultList();
+
+//        //동적 쿼리는 QuaryDSL을 사용해서 해결하자~
+//        log.info("들어오는 orderSearch Type={}", orderSearch.getOrderStatus());
+//        return em.createQuery("select o from Order o join Member m on o.member = m where o.status = :status and o.member.name like :name", Order.class)
+//                 .setParameter("name", orderSearch.getMemberName())
+//                 .setParameter("status", orderSearch.getOrderStatus())
+//                 .setMaxResults(1000)
+//                 .getResultList();
     }
 
     public List<Order> findAllWithMemberDelivery() {
