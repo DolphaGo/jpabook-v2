@@ -19,4 +19,4 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug # 쿼리 로그 출력
-    org.hibernate.type.descriptor.sql: trace
+#    org.hibernate.type.descriptor.sql: trace
