@@ -67,4 +67,19 @@ public class OrderRepository {    // 여기는 엔티티 스펙만 쿼리하자
     public List<Order> findAllWithMemberDelivery() {
         return em.createQuery("select o from Order o join fetch o.member m join fetch o.delivery d", Order.class).getResultList();
     }
+
+    public List<Order> findAllWithItem() {
+        // 페치 조인도 사실은 그냥 조인의 연속이다.
+        // 조인을 여러개 하고, Select도 여러개 해서 반환하는 것
+        // 그래서 주문이 중복될 수 있다. (조인으로 인해) -> distinct로 구분하자
+        return em.createQuery(
+                "select distinct o from Order o" +
+                " join fetch o.member m" +
+                " join fetch o.delivery d" +
+                " join fetch o.orderItems oi" +
+                " join fetch oi.item i", Order.class)
+                 .setFirstResult(1)
+                 .setMaxResults(100)
+                 .getResultList();
+    }
 }

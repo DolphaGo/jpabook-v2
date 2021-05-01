@@ -1,9 +1,11 @@
 package com.jpashop.dolphago.api;
 
+import static java.util.stream.Collectors.*;
 import static java.util.stream.Collectors.toList;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +50,20 @@ public class OrderApiController {
         return orders.stream()
                      .map(OrderDto::new)
                      .collect(toList());
+    }
+
+    /**
+     * 페치 조인으로 최적화하기 (한방 쿼리)
+     */
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithItem();
+        System.out.println("주문 개수 :" + orders.size());
+        List<OrderDto> result = orders
+                .stream()
+                .map(OrderDto::new)
+                .collect(toList());
+        return result;
     }
 
     @Getter
