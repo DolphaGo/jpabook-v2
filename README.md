@@ -26,3 +26,34 @@ JPQL에서 fetch Join으로 1+N 문제를 해결하려고 할 때
 
 2. 엔티티 조회 방식으로 해결이 안되면 DTO조회 방식 사용
 3. DTO 조회 방식으로 해결이 안되면 NativeSQL or 스프링 JdbcTemplate
+
+
+
+```java
+private class OrderDto {
+  private Long orderId;
+  private String name;
+  private LocalDateTime orderDate;
+  private OrderStatus orderStatus;
+  private Address address;
+  private List<OrderItem> orderItems;
+}
+```
+
+예를 들어서 Order 안에 OrderItem들이 있을 때, Order를 DTO로 만들겠다고, 해당 값들을 DTO로 복사한다. 그리고 그냥 orderDto.orderItems = order.getOrderItems() 를 하면, order에 있는 orderItem은 레이지로 발라져 있는 엔티티이기 때문에 dto.orderItems엔 null로 출력이 된다. 즉, 프록시 강제 초기화를 해줘야 한다.
+
+근데 사실 ㅎㅎ 이렇게 엔티티를 DTO로 래핑하는 것도 좋지 않다. OrderItem 또한 DTO로 만들어줘야 한다.
+
+완전히 Entity를 분리해줘야 한다.
+
+```java
+private class OrderDto {
+  private Long orderId;
+  private String name;
+  private LocalDateTime orderDate;
+  private OrderStatus orderStatus;
+  private Address address;
+  private List<OrderItemDto> orderItems;
+}
+```
+
