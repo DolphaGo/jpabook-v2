@@ -1,11 +1,9 @@
 package com.jpashop.dolphago.api;
 
-import static java.util.stream.Collectors.*;
 import static java.util.stream.Collectors.toList;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +15,8 @@ import com.jpashop.dolphago.domain.shop.OrderItem;
 import com.jpashop.dolphago.domain.shop.OrderStatus;
 import com.jpashop.dolphago.repository.OrderRepository;
 import com.jpashop.dolphago.repository.OrderSearch;
+import com.jpashop.dolphago.repository.order.query.OrderQueryDto;
+import com.jpashop.dolphago.repository.order.query.OrderQueryRepository;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OrderApiController {
     private final OrderRepository orderRepository;
+    private final OrderQueryRepository orderQueryRepository;
 
     /**
      * 엔티티를 직접 노출시 (하면 안됨)
@@ -84,6 +85,11 @@ public class OrderApiController {
         return orders.stream()
                      .map(OrderDto::new)  //default_batch_fetch_size 설정으로 1:N:M을 1:1:1로 최적화
                      .collect(toList());
+    }
+
+    @GetMapping("/api/v4/orders")
+    public List<OrderQueryDto> ordersV4() {
+        return orderQueryRepository.findOrderQueryDtos();
     }
 
     @Getter
