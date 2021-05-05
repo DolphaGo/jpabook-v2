@@ -78,4 +78,44 @@ public class OrderQueryRepository {
                      .map(o -> o.getOrderId())
                      .collect(Collectors.toList());
     }
+
+    public List<OrderFlatDto> findAllByDto_flat() {
+        /**
+         * 장점 : 한방 쿼리
+         * 단점 : 데이터 뻥튀기로 인해 페이징 불가
+         * select
+         *         order0_.order_id as col_0_0_,
+         *         member1_.name as col_1_0_,
+         *         order0_.order_date as col_2_0_,
+         *         order0_.status as col_3_0_,
+         *         delivery2_.city as col_4_0_,
+         *         delivery2_.street as col_4_1_,
+         *         delivery2_.zipcode as col_4_2_,
+         *         item4_.name as col_5_0_,
+         *         orderitems3_.order_price as col_6_0_,
+         *         orderitems3_.count as col_7_0_
+         *     from
+         *         orders order0_
+         *     inner join
+         *         member member1_
+         *             on order0_.member_id=member1_.member_id
+         *     inner join
+         *         delivery delivery2_
+         *             on order0_.delivery_id=delivery2_.id
+         *     inner join
+         *         order_item orderitems3_
+         *             on order0_.order_id=orderitems3_.order_id
+         *     inner join
+         *         item item4_
+         *             on orderitems3_.item_id=item4_.item_id
+         */
+        return em.createQuery(
+                "select new com.jpashop.dolphago.repository.order.query.OrderFlatDto(o.id, m.name, o.orderDate, o.status, d.address, i.name, oi.orderPrice, oi.count)" +
+                " from Order o" +
+                " join o.member m" +
+                " join o.delivery d" +
+                " join o.orderItems oi" +
+                " join oi.item i", OrderFlatDto.class)
+                 .getResultList();
+    }
 }

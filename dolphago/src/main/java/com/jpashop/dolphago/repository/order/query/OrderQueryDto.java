@@ -7,8 +7,10 @@ import com.jpashop.dolphago.domain.shop.Address;
 import com.jpashop.dolphago.domain.shop.OrderStatus;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(of = "orderId") // Collect에서 orderId를 기준으로 groupBy를 하기 위함
 public class OrderQueryDto {
     private Long orderId;
     private String name;
@@ -23,5 +25,15 @@ public class OrderQueryDto {
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
         this.address = address;
+    }
+
+    public OrderQueryDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus orderStatus, Address address,
+                         List<OrderItemQueryDto> orderItems) {
+        this.orderId = orderId;
+        this.name = name;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.address = address;
+        this.orderItems = orderItems;
     }
 }
