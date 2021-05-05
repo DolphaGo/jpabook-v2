@@ -211,7 +211,7 @@ distinct 를 사용한 이유는 1대다 조인이 있으므로 데이터베이�
 이 옵션을 사용하면 컬렉션이나, 프록시 객체를 한꺼번에 설정한 size 만큼 IN 쿼리로 조회한다.
 
 ```yaml
- spring:
+spring:
 	jpa:
 		properties:
 			hibernate:
