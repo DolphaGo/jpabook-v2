@@ -19,6 +19,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.BatchSize;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AccessLevel;
@@ -41,6 +43,7 @@ public class Order {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+//    @BatchSize(size = 1000) // 글로벌이 아닌 컬렉션에 정의하고 싶을 땐 여기에 정의하면 된다.
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 

@@ -12,12 +12,15 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.BatchSize;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jpashop.dolphago.exception.NotEnoughStockException;
 
 import lombok.Getter;
 import lombok.Setter;
 
+//@BatchSize(size = 100)// toOne관계에서 부분 배치 사이즈를 지정하고 싶을 때
 @Getter
 @Setter
 @Entity

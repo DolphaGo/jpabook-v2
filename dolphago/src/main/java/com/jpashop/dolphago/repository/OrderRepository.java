@@ -64,8 +64,35 @@ public class OrderRepository {    // 여기는 엔티티 스펙만 쿼리하자
 //                 .getResultList();
     }
 
-    public List<Order> findAllWithMemberDelivery() {
-        return em.createQuery("select o from Order o join fetch o.member m join fetch o.delivery d", Order.class).getResultList();
+    /**
+     * 페치조인 최적화 방법
+     * toOne 관계는 fetch Join을 쓰고, 컬렉션은 지연로딩을 하라.
+     * toOne 관계는 Row수 뻥튀기에 영향을 주지 않으니까
+     * 그리고 batchSize를 지정하라. 왠만하면 글로벌 페치 전략을 추천한다.
+     */
+    public List<Order> findAllWithMemberDelivery() { // toOne 관계를 페치조인한 것이기 때문에 페이징할 수 있음
+        return em.createQuery("select o from Order o "
+                              + "join fetch o.member m "
+                              + "join fetch o.delivery d", Order.class)
+                 .getResultList();
+    }
+
+    // 이 함수가 바로 위 toOne fetch join 관계에서 페이징 처리한 것. order 기준이기에 잘 된다.
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery("select o from Order o "
+                              + "join fetch o.member m "
+                              + "join fetch o.delivery d", Order.class)
+                 .setFirstResult(offset)
+                 .setMaxResults(limit)
+                 .getResultList();
+
+//        // 그냥 다음과 같이 해도 BatchSize에 의해 member, delivery가 최적화가 됩니다.
+//        // 대신 아무래도 네트워크를 더 많이 타게 되죠. 그래서 toOne관계는 페치조인 때리셔도 됩니다.
+//        return em.createQuery("select o from Order o ", Order.class)
+//                 .setFirstResult(offset)
+//                 .setMaxResults(limit)
+//                 .getResultList();
+
     }
 
     public List<Order> findAllWithItem() {

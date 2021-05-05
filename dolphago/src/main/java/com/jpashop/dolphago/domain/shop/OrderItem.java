@@ -26,6 +26,7 @@ public class OrderItem {
     @Column(name = "order_item_id")
     private Long id;
 
+    // toOne 관계를 정의할 때는 엔티티 단에 걸어주면 된다.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;

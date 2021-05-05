@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jpashop.dolphago.domain.shop.Address;
@@ -54,6 +55,9 @@ public class OrderApiController {
 
     /**
      * 페치 조인으로 최적화하기 (한방 쿼리)
+     * 단점 :
+     * 실제로 데이터 베이스로 가면 데이터 중복이 많음(정규화가 안되어있음)
+     * DB에서 Application으로 많은 데이터가 전송이 되고 커팅이 됨
      */
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3() {
@@ -64,6 +68,22 @@ public class OrderApiController {
                 .map(OrderDto::new)
                 .collect(toList());
         return result;
+    }
+
+    /**
+     * 페이징 + 페치 조인 + 성능 최적화까지
+     * DB에 가보면 최적화되어서 정규화되어 있는 것을 확인할 수 있음
+     */
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDto> ordersV3_page(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit
+    ) {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery(offset, limit);
+
+        return orders.stream()
+                     .map(OrderDto::new)  //default_batch_fetch_size 설정으로 1:N:M을 1:1:1로 최적화
+                     .collect(toList());
     }
 
     @Getter
@@ -82,8 +102,7 @@ public class OrderApiController {
             this.orderStatus = order.getStatus();
             this.address = order.getDelivery().getAddress();
 //            order.getOrderItems().forEach(i -> i.getItem().getName());  // orderItem은 프록시 엔티티이기 때문에 json에는 Null로 반환됨. 따라서 강제 초기화로 해결한다.
-            this.orderItems = order.getOrderItems()
-                                   .stream()
+            this.orderItems = order.getOrderItems().stream()
                                    .map(OrderItemDto::new)
                                    .collect(toList());
         }
