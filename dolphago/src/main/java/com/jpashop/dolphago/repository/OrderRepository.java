@@ -1,5 +1,7 @@
 package com.jpashop.dolphago.repository;
 
+import static com.jpashop.dolphago.domain.shop.QOrder.order;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,16 +10,26 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.jpashop.dolphago.domain.shop.Order;
+import com.jpashop.dolphago.domain.shop.OrderStatus;
+import com.jpashop.dolphago.domain.shop.QMember;
+import com.jpashop.dolphago.domain.shop.QOrder;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Repository
-@RequiredArgsConstructor
 public class OrderRepository {    // 여기는 엔티티 스펙만 쿼리하자
 
     private final EntityManager em;
+    private final JPAQueryFactory query;
+
+    public OrderRepository(EntityManager em) {
+        this.em = em;
+        this.query = new JPAQueryFactory(em);
+    }
 
     public void save(Order order) {
         em.persist(order);
@@ -108,5 +120,31 @@ public class OrderRepository {    // 여기는 엔티티 스펙만 쿼리하자
                  .setFirstResult(1)
                  .setMaxResults(100)
                  .getResultList();
+    }
+
+    public List<Order> findAll(OrderSearch orderSearch) {
+        QOrder order = QOrder.order;
+        QMember member = QMember.member;
+
+        return query.select(order)
+                    .from(order)
+                    .join(order.member, member)
+                    .where(statusEq(orderSearch.getOrderStatus()), nameLike(orderSearch.getMemberName())) // 동적 쿼리 & and 조건
+                    .limit(1000)
+                    .fetch();
+    }
+
+    private BooleanExpression nameLike(String memberName) {
+        if (!StringUtils.hasText(memberName)) {
+            return null;
+        }
+        return QMember.member.name.like(memberName);
+    }
+
+    private BooleanExpression statusEq(OrderStatus statusCond) {
+        if (statusCond == null) {
+            return null;
+        }
+        return order.status.eq(statusCond);
     }
 }

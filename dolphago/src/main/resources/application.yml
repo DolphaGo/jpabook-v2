@@ -12,6 +12,7 @@ spring:
 #      show_sql: true # 쿼리 콘솔 출력 -> 사용 지양
         format_sql: true
         default_batch_fetch_size: 1000 # 하이버네이트 최적화
+#    open-in-view: false
 
   output:
     ansi:
