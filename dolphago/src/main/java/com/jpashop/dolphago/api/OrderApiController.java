@@ -4,26 +4,23 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.mapping;
 import static java.util.stream.Collectors.toList;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jpashop.dolphago.domain.shop.Address;
 import com.jpashop.dolphago.domain.shop.Order;
 import com.jpashop.dolphago.domain.shop.OrderItem;
-import com.jpashop.dolphago.domain.shop.OrderStatus;
 import com.jpashop.dolphago.repository.OrderRepository;
 import com.jpashop.dolphago.repository.OrderSearch;
 import com.jpashop.dolphago.repository.order.query.OrderFlatDto;
 import com.jpashop.dolphago.repository.order.query.OrderItemQueryDto;
 import com.jpashop.dolphago.repository.order.query.OrderQueryDto;
 import com.jpashop.dolphago.repository.order.query.OrderQueryRepository;
+import com.jpashop.dolphago.service.query.OrderDto;
+import com.jpashop.dolphago.service.query.OrderQueryService;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -31,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class OrderApiController {
     private final OrderRepository orderRepository;
     private final OrderQueryRepository orderQueryRepository;
+    private final OrderQueryService orderQueryService;
 
     /**
      * 엔티티를 직접 노출시 (하면 안됨)
@@ -67,13 +65,7 @@ public class OrderApiController {
      */
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3() {
-        List<Order> orders = orderRepository.findAllWithItem();
-        System.out.println("주문 개수 :" + orders.size());
-        List<OrderDto> result = orders
-                .stream()
-                .map(OrderDto::new)
-                .collect(toList());
-        return result;
+        return orderQueryService.ordersV3(); // OSIV로 Query / Command를 분리
     }
 
     /**
@@ -126,38 +118,4 @@ public class OrderApiController {
                     .collect(toList());
     }
 
-    @Getter
-    private class OrderDto {
-        private Long orderId;
-        private String name;
-        private LocalDateTime orderDate;
-        private OrderStatus orderStatus;
-        private Address address;
-        private List<OrderItemDto> orderItems;
-
-        public OrderDto(Order order) {
-            this.orderId = order.getId();
-            this.name = order.getMember().getName();
-            this.orderDate = order.getOrderDate();
-            this.orderStatus = order.getStatus();
-            this.address = order.getDelivery().getAddress();
-//            order.getOrderItems().forEach(i -> i.getItem().getName());  // orderItem은 프록시 엔티티이기 때문에 json에는 Null로 반환됨. 따라서 강제 초기화로 해결한다.
-            this.orderItems = order.getOrderItems().stream()
-                                   .map(OrderItemDto::new)
-                                   .collect(toList());
-        }
-    }
-
-    @Getter
-    static class OrderItemDto {
-        private String itemName; // 상품명
-        private int orderPrice; // 주문 가격
-        private int count; // 주문 수량
-
-        public OrderItemDto(OrderItem orderItem) {
-            this.itemName = orderItem.getItem().getName();
-            this.orderPrice = orderItem.getOrderPrice();
-            this.count = orderItem.getCount();
-        }
-    }
 }
