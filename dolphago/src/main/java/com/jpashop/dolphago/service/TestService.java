@@ -1,5 +1,8 @@
 package com.jpashop.dolphago.service;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,18 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class TestService {
     private final TestRepository testRepository;
+
+    @Value("${test.nickname}")
+    private String nickname;
+
+    @PostConstruct
+    public void init() {
+        this.nickname = this.nickname + "입니다";
+    }
+
+    public String say(){
+        return this.nickname;
+    }
 
     @Transactional
     public void updateStatus(Long testId, TestEnum testEnum) {
