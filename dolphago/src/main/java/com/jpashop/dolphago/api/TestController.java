@@ -2,6 +2,7 @@ package com.jpashop.dolphago.api;
 
 import javax.validation.Valid;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,6 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 public class TestController {
     private final TestService testService;
 
+    @GetMapping("/test")
+    public String say() {
+        return testService.say();
+    }
+
     @PostMapping("/test/create")
     public void create(@Valid @RequestBody TestForm testForm) {
         log.info("입력 ={}", testForm);
@@ -30,4 +36,5 @@ public class TestController {
     public void modify(@PathVariable Long id, @Valid @RequestBody TestForm testForm) {
         testService.updateStatus(id, testForm.getTestEnum());
     }
+
 }
