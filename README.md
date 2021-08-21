@@ -203,8 +203,9 @@ distinct 를 사용한 이유는 1대다 조인이 있으므로 데이터베이�
 그러면 페이징 + 컬렉션 엔티티를 함께 조회하려면 어떻게 해야할까?
 
 - 먼저 **ToOne**(OneToOne, ManyToOne) 관계를 모두 페치조인 한다. ToOne 관계는 row수를 증가시키지 않으므로 페이징 쿼리에 영향을 주지 않는다.
-- 컬렉션은 지연 로딩으로 조회한다.
+- 컬렉션은 지연 로딩으로 조회한다. 
 - 지연 로딩 성능 최적화를 위해 **hibernate.default_batch_fetch_size** , **@BatchSize** 를 적용한다.
+- 결론적으로 1:N:M 관계를 가져올 때 1+1+1 쿼리가 됨(M, N쪽이 1000개 이하일 때)
 
 **hibernate.default_batch_fetch_size: 글로벌 설정**
 **@BatchSize: 개별 최적화**
